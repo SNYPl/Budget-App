@@ -53,11 +53,19 @@ body {
 .budget__expense--value {
     color: white;
     font-weight: 400;
+    display:flex;
 }
+.budget__total{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .bottom {
     display: flex;
     flex-direction: column;
+   
 }
 
 .add__container {
@@ -184,6 +192,9 @@ button {
     background-color: #f7f7f7
 }
 
+.item__value {
+    display:flex;
+}
 .item:first-child {
     border-top: 1px solid #e7e7e7;
     background-color: white;
@@ -205,4 +216,16 @@ button {
 .income--expanse {
     color: #FF5049;
 }
+#plus,
+#minus {
+    padding-right:7px;
+}
 
+#min {
+    font-size:40px;
+    padding-right:10px;
+}
+
+.chngmin {
+    padding-right:10px;
+}

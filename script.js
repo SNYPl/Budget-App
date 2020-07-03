@@ -18,13 +18,10 @@ const backController = (function () {
             inc: [],
             exp: []
         },
-
-        total: {
-            exp: 0,
-            inc: 0
-        }
     }
-
+    let totalIncomes = [0];
+    let totalExpanses = [0];
+    
 
 
 
@@ -52,34 +49,75 @@ const backController = (function () {
         },
 
         testdata: function () {
-            console.log(data.all);
+            console.log(data);
+            console.log(totalIncomes);
+            console.log(totalExpanses);
         },
 
-        addToElement : function (ty) {
+        addToElementInc : function () {
             let incomeDiv = document.getElementById("incomes");
+            let parsInc =  parseInt(incomeDiv.textContent);
+           
+            for(i =0; i <data.all.inc.length;i++) {
+                 incomeDiv.textContent =`${parsInc + parseInt(data.all.inc[i].value)}`;
+                }
+        },
+
+
+
+        addToElementExp : function () {
             let expenseDiv = document.getElementById("expenses");
+            let parsExp =  parseInt(expenseDiv.textContent);
+
+                for(i =0; i <data.all.exp.length;i++) {
+                 expenseDiv.textContent =`${parsExp + parseInt(data.all.exp[i].value)}`;
+                   
+                }
+        },
+
+
+        addToTotalInc : function () {
+            let IncCont = document.querySelector(".add--value").value;
+            totalIncomes.push(parseInt(IncCont));
+
+
+        },
+
+
+        AddTotalExp : function () {
+        let expCont = document.querySelector(".add--value").value;
+            totalExpanses.push(parseInt(expCont));
+
+        },
+
+
+        totalUi : function (mp) {
+
+            let totinc = totalIncomes.reduce((acc,cur)  =>  acc+cur);
+            let totexp = totalExpanses.reduce((acc,cur)  =>  acc+cur);
+            let totals = totinc - totexp;
+           
+                document.getElementById("budget-value").textContent=`${parseInt(totals)}`;
+
+
+
+                if(document.getElementById("budget-value").textContent < 0) {
+                    document.querySelector(".Change").textContent="";
+                } else if (document.getElementById("budget-value").textContent > 0) {
+                    document.querySelector(".Change").textContent="+";
+
+                }
+
             
-
-            let pars =  parseInt(incomeDiv.textContent);
-                for(i =0; i <data.all.inc.length;i++) {
-
-                   
-                    incomeDiv.textContent =`+${pars + parseInt(data.all.inc[i].value)}`;
-                   console.log(incomeDiv.textContent) 
-                   
-
-                    };
-        
-
 
         }
 
 
 
 
+
+
     }
-
-
 
 })();
 
@@ -114,7 +152,7 @@ const uiInterface = (function () {
              document.querySelector(`${type}-list`).insertAdjacentHTML('afterbegin', ` <div class="item " id=${id}>
                 <div class="item__description">${description}</div>
                             <div class="right">
-                       <div class="item__value">${mp} ${value}</div>
+                       <div class="item__value"><div class="minus" id="minus">+</div> ${value}</div>
                    </div>
                </div>`)
             
@@ -142,7 +180,9 @@ const uiInterface = (function () {
 const controller = (function (budgeContr, UiContr) {
     let Strings = UiContr.getStrings();
     budgeContr.deleteFirstElement();
-   
+    
+    // document.getElementById("budget-value").textContent=0;
+
     document.getElementById("incomes").textContent=0;
     document.getElementById("expenses").textContent=0;
 
@@ -164,8 +204,13 @@ const controller = (function (budgeContr, UiContr) {
         let adInp = function () {
             if (addInput.type == 'inc') {
                 UiContr.addIncome('.income', this.ID, addInput.desc, addInput.val, `+`);
+                budgeContr.addToElementInc();
+                budgeContr.addToTotalInc();
+
             } else if (addInput.type == 'exp') {
                 UiContr.addIncome('.expanse', this.ID, addInput.desc, addInput.val, `-`);
+                budgeContr.addToElementExp();
+                budgeContr.AddTotalExp();
 
             }
         }();
@@ -173,8 +218,8 @@ const controller = (function (budgeContr, UiContr) {
         UiContr.clearfields();
 
 
-        //add income to div
-        budgeContr.addToElement();
+        //add income to Total
+        budgeContr.totalUi();
 
     } 
     }
