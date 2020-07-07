@@ -154,7 +154,7 @@ const uiInterface = (function () {
             }
         },
 
-        addIncome: function (type, id, description, value, mp) {
+        addIncome: function (type, id, description, value, mp,cls) {
 
              document.querySelector(`${type}-list`).insertAdjacentHTML('afterbegin', ` <div class="item " id=${id}>
                 <div class="item__description">${description}</div>
@@ -164,9 +164,9 @@ const uiInterface = (function () {
                                 ${value}
                                 <div>.00</div>
 
-                                <div class="item__delete">
+                                <div class="item__delete visibled">
                                 <button class="item__delete--btn">
-                                <i class="gg-close-o"></i>
+                                <i class="gg-close-o ${cls}"></i>
                                 </button>
                                 </div>
 
@@ -221,12 +221,12 @@ const controller = (function (budgeContr, UiContr) {
         //add item to UI
         let adInp = function () {
             if (addInput.type == 'inc') {
-                UiContr.addIncome('.income', this.ID, addInput.desc, addInput.val, `+`);
+                UiContr.addIncome('.income', this.ID, addInput.desc, addInput.val, `+`,"blue");
                 budgeContr.addToElementInc();
                 budgeContr.addToTotalInc();
 
             } else if (addInput.type == 'exp') {
-                UiContr.addIncome('.expanse', this.ID, addInput.desc, addInput.val, `-`);
+                UiContr.addIncome('.expanse', this.ID, addInput.desc, addInput.val, `-`,"red");
                 budgeContr.addToElementExp();
                 budgeContr.AddTotalExp();
 

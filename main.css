@@ -274,7 +274,7 @@ button {
     height: 18px;
     border: 2px solid;
     border-radius: 40px;
-    color:#28B9B5;
+    /* color:#28B9B5; */
 }
 
 .gg-close-o::after,
@@ -305,3 +305,11 @@ button {
     visibility: visible;
 }
 
+
+.red {
+color:#FF5049;
+}
+
+.blue {
+color:#28B9B5;
+}
