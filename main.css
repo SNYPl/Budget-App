@@ -1,5 +1,7 @@
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;   
+     font-weight: 500;
 }
 
 
@@ -20,6 +22,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-image:url(desert.jpg);
 }
 
 .budget__total {
@@ -27,8 +30,11 @@ body {
     margin-bottom: 15px;
     vertical-align: middle;
     text-align: center;
-    /* color:white;
-    font-weight: 400; */
+}
+
+.budget-vaue {
+    color:white;
+    
 }
 
 .budget__income,
@@ -52,7 +58,6 @@ body {
 .budget__income--value,
 .budget__expense--value {
     color: white;
-    font-weight: 400;
     display:flex;
 }
 .budget__total{
@@ -75,9 +80,6 @@ body {
     border: 1px solid #e7e7e7;
     border-radius: 5px;
     width: 100%;
-    /* display:flex;
-    justify-content: space-around; */
-    /* flex-direction:row;; */
     margin-bottom: 30px;
 }
 
@@ -156,9 +158,6 @@ button {
 }
 
 .add__button {
-    /* width:100px; */
-    /* margin:0 auto; */
-    /* display:flex; */
     display: inline;
 }
 
@@ -229,3 +228,80 @@ button {
 .chngmin {
     padding-right:10px;
 }
+
+
+ .item:hover .item__value {
+      transform: scale(1.1) translateX(-22px); 
+      
+       }
+
+
+.item:hover .item__delete { 
+
+    transform: scale(1.1) translateX(20px);
+    visibility: visible;
+ }
+
+.item:hover .item__description { 
+    transform: scale(1.1);
+}
+     
+.item__delete--btn:active {
+    transform: scale(1.1);
+}
+
+.item__delete--btn:focus {
+    outline: none;
+}
+
+.item__delete--btn {
+    margin-top:3px;
+    padding:0;
+    font-size: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+   
+   
+}
+
+.gg-close-o {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 18px;
+    height: 18px;
+    border: 2px solid;
+    border-radius: 40px;
+    color:#28B9B5;
+}
+
+.gg-close-o::after,
+.gg-close-o::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 12px;
+    height: 2px;
+    background: currentColor;
+    transform: rotate(45deg);
+    border-radius: 5px;
+    top: 6px;
+    left: 1px
+}
+
+.gg-close-o::after {
+    transform: rotate(-45deg)
+}
+
+
+.visibled {
+    visibility: hidden;
+}
+
+.novisibled {
+    visibility: visible;
+}
+

@@ -103,8 +103,15 @@ const backController = (function () {
 
                 if(document.getElementById("budget-value").textContent < 0) {
                     document.querySelector(".Change").textContent="";
+                    document.getElementById("budget-value").style.color="#e6082d";
+                    document.getElementById("bd").style.color="#e6082d";
+
                 } else if (document.getElementById("budget-value").textContent > 0) {
                     document.querySelector(".Change").textContent="+";
+                    document.getElementById("budget-value").style.color="#fff";
+                    document.getElementById("bd").style.color="#fff";
+                    document.querySelector(".Change").style.color="#fff";
+
 
                 }
 
@@ -152,7 +159,18 @@ const uiInterface = (function () {
              document.querySelector(`${type}-list`).insertAdjacentHTML('afterbegin', ` <div class="item " id=${id}>
                 <div class="item__description">${description}</div>
                             <div class="right">
-                       <div class="item__value"><div class="minus" id="minus">+</div> ${value}</div>
+                       <div class="item__value">
+                        <div class="minus" id="minus">${mp}</div>
+                                ${value}
+                                <div>.00</div>
+
+                                <div class="item__delete">
+                                <button class="item__delete--btn">
+                                <i class="gg-close-o"></i>
+                                </button>
+                                </div>
+
+                        </div>
                    </div>
                </div>`)
             
