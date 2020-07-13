@@ -23,6 +23,7 @@ body {
     align-items: center;
     justify-content: center;
     background-image:url(desert.jpg);
+    background-size:auto;
 }
 
 .budget__total {
@@ -312,4 +313,8 @@ color:#FF5049;
 
 .blue {
 color:#28B9B5;
+}
+
+.Change {
+    margin-right:12px;
 }
