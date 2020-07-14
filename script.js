@@ -27,54 +27,90 @@ const backController = (function () {
 
     return {
 
-           
 
+
+           
         itemAdded: function (type = 'inc', des = "", val = 0) {
             let newItem, ID;
-
-            // ID = data.all['inc'].length + data.all['exp'].length + 1
-            // ID = data.all[type].length +1;
+            
 
             if (data.all[type].length > 0) {
                 ID = data.all[type][data.all[type].length -1].id+1;
             } else {
                 ID = 1;
             }
-                    
-
-           
+                              
             
             if (type === 'exp') {
                 newItem = new Expense(ID, des, val);
-
 
             } else if (type === 'inc') {
                 newItem = new Income(ID, des, val);
             }
             
             data.all[type].push(newItem)
-            
-
-           
-
+                  
             return newItem;
-
         },
 
-        // deleteFirstElement: function () {
-        //     data.all.inc.shift();
-        // },
+       
 
         testdata: function () {
             console.log(data);
             console.log(totalIncomes);
             console.log(totalExpanses);
+            
+
         },
+
+        addToTotalInc : function (idNum) {
+            let dataInc = data.all.inc[idNum].value
+            totalIncomes.push(parseInt(dataInc));
+            console.log(totalIncomes);
+        },
+
+
+        AddTotalExp : function (idNum) {
+
+        let dataExp = data.all.exp[idNum].value
+        totalExpanses.push(parseInt(dataExp));           
+            console.log(totalExpanses);
+        },
+
+
+        totalUi : function (type) {
+
+            let totinc = totalIncomes.reduce((acc,cur)  =>  acc+cur);
+            let totexp = totalExpanses.reduce((acc,cur)  =>  acc+cur);
+            // let totals = totinc - totexp;
+            let totals;
+          
+                totals= totinc -  totexp;
+          
+            
+           
+                document.getElementById("budget-value").textContent=`${parseInt(totals)}`;
+
+
+
+                if(document.getElementById("budget-value").textContent < 0) {
+                    document.querySelector(".Change").textContent="";
+                    document.getElementById("budget-value").style.color="#e6082d";
+                    document.getElementById("bd").style.color="#e6082d";
+                } else if (document.getElementById("budget-value").textContent > 0) {
+                    document.querySelector(".Change").textContent="+";
+                    document.getElementById("budget-value").style.color="#fff";
+                    document.getElementById("bd").style.color="#fff";
+                    document.querySelector(".Change").style.color="#fff";
+                }
+
+                      
+        },
+
 
         addToElementInc : function () {
             let incomeDiv = document.getElementById("incomes");
             let parsInc =  parseInt(incomeDiv.textContent);
-           
             for(i =0; i <data.all.inc.length;i++) {
                  incomeDiv.textContent =`${parsInc + parseInt(data.all.inc[i].value)}`;
                 }
@@ -93,49 +129,6 @@ const backController = (function () {
         },
 
 
-        addToTotalInc : function () {
-            let IncCont = document.querySelector(".add--value").value;
-            totalIncomes.push(parseInt(IncCont));
-            console.log(totalIncomes);
-
-        },
-
-
-        AddTotalExp : function () {
-        let expCont = document.querySelector(".add--value").value;
-            totalExpanses.push(parseInt(expCont));
-            console.log(totalExpanses);
-        },
-
-
-        totalUi : function () {
-
-            let totinc = totalIncomes.reduce((acc,cur)  =>  acc+cur);
-            let totexp = totalExpanses.reduce((acc,cur)  =>  acc+cur);
-            let totals = totinc - totexp;
-           
-                document.getElementById("budget-value").textContent=`${parseInt(totals)}`;
-
-
-
-                if(document.getElementById("budget-value").textContent < 0) {
-                    document.querySelector(".Change").textContent="";
-                    document.getElementById("budget-value").style.color="#e6082d";
-                    document.getElementById("bd").style.color="#e6082d";
-
-                } else if (document.getElementById("budget-value").textContent > 0) {
-                    document.querySelector(".Change").textContent="+";
-                    document.getElementById("budget-value").style.color="#fff";
-                    document.getElementById("bd").style.color="#fff";
-                    document.querySelector(".Change").style.color="#fff";
-
-
-                }
-            
-
-            
-
-        },
 
 
         addId: function (type) {
@@ -144,6 +137,21 @@ const backController = (function () {
            let typ = ID
 
         return typ;
+        },
+
+        newIncId:function () {
+            let eb = 0;
+             eb = data.all.inc.length -1;
+
+            return eb;
+        },
+
+
+        newExpId:function () {
+            let eb = 0;
+             eb = data.all.exp.length -1;
+
+            return eb;
         },
 
 
@@ -158,18 +166,98 @@ const backController = (function () {
         },
 
 
+        deleteFromData : function (ty, id) {
+            let ids, index;
+
+            ids=data.all[ty].map(function(current) {
+
+                return current.id;
+
+            });
+
+            index= ids.indexOf(id);
+
+            if(index !== -1) {
+                data.all[ty].splice(index, 1);
 
 
-        deleteInc:function(type) {
+                if (ty == "inc") {
+                    totalIncomes.splice(index +1,1);
+                    
+                }else if (ty=="exp") {
+                    totalExpanses.splice(index +1,1);
+                  
+                }
+               
 
-            let btn =  document.querySelector(".del1");
+            }
+
+
+        },
+
+        deleteFromUi:function (select) {
+            let selector = document.getElementById(select);
+            // let vnaxot =  document.querySelector(".del1");
+
+            // vnaxot.parentElement.parentNode.parentElement.parentNode.remove(select);
+            selector.parentNode.removeChild(selector);
+
+
+            
+
+
+        },
+
+
+
+
+        deletedInc:function(type) {
+
+            
             
             let btn1 =  document.querySelector(".container__income");
 
  
             btn1.addEventListener("click", function(event) {
                 let itemId, splitId, type , id;
-                console.log(event.target.parentNode.parentNode.parentNode.parentNode.parentNode.id);
+                
+                itemId = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+
+                if(itemId) {
+
+                    splitId = itemId.split("-");
+                    type=splitId[0];
+                    id=parseInt(splitId[1]);
+                    backController.deleteFromData(type,id)
+                    backController.deleteFromUi(itemId);
+                    
+                    backController.totalUi();
+
+                  
+                }
+
+               
+
+          
+               
+            }); 
+            
+
+        },
+
+
+
+
+
+        deletedExp:function(type) {
+
+           
+            
+            let btn1 =  document.querySelector(".container__expanse");
+
+ 
+            btn1.addEventListener("click", function(event) {
+                let itemId, splitId, type , id;
                 
                 itemId = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
 
@@ -177,46 +265,24 @@ const backController = (function () {
                 
                     splitId = itemId.split("-");
                     type=splitId[0];
-                    id=splitId[1];
-                  
+                    id=parseInt(splitId[1]);
 
+                    backController.deleteFromData(type,id)
+                    backController.deleteFromUi(itemId);
+                    
 
+                    backController.totalUi();
 
                 }
 
-
-
-
-                // const parentItem = document.querySelector(".btn-inc").parentElement.parentNode.parentElement
-                // const id = parentItem.getAttribute('id')
-                // console.log(document.querySelector(".btn-inc").parentElement.parentNode.parentElement.id)
-                
-                // parentItem.remove()
-
-                // backController.deleteTotal(backController.addId(document.querySelector(".add--type").value) - 1);
-
-                
-                // delete data.all[type][data.all[type].length -1].id +
-
-
-                // console.log(data.all[type][id]); 
-                // console.log(data.all[type][data.all[type].length -1]);
-                // console.log(id);
-                // console.log();
-
-
                
-                // backController.totalUi();
 
           
                
             }); 
             
-            
 
-
-        }
-
+        },
 
 
     }
@@ -284,20 +350,6 @@ const uiInterface = (function () {
 
 
 
-        deleteInc : function () {
-           
- 
-         },
-
-
-        deleteExp : function () {
-           
-
-
- 
-         },
-
-
 
 
     }
@@ -329,22 +381,22 @@ const controller = (function (budgeContr, UiContr) {
         let addItems = budgeContr.itemAdded(addInput.type, addInput.desc, addInput.val)
 
         console.log(addItems);
-    
+        
 
         //add item to UI
         let adInp = function () {
             if (addInput.type == 'inc') {
-                UiContr.addIncome('.income', `inc-${budgeContr.addId(addInput.type)}`, addInput.desc, addInput.val, `+`,"blue","btn-inc","del1");
+                UiContr.addIncome('.income', `inc-${budgeContr.addId(addInput.type)}`, addInput.desc, addInput.val, `+`,"blue","btn-inc","del1");              
+                budgeContr.addToTotalInc(budgeContr.newIncId());
                 budgeContr.addToElementInc();
-                budgeContr.addToTotalInc();
-                budgeContr.deleteInc(addInput.type);
-
+             
+                budgeContr.deletedInc(addInput.type);
             } else if (addInput.type == 'exp') {
                 UiContr.addIncome('.expanse', `exp-${budgeContr.addId(addInput.type)}`, addInput.desc, addInput.val, `-`,"red", "btn-exp","del2");
+                budgeContr.AddTotalExp(budgeContr.newExpId());
                 budgeContr.addToElementExp();
-                budgeContr.AddTotalExp();
-                // UiContr.deleteExp();
-                // budgeContr.tester2();
+               
+                budgeContr.deletedExp(addInput.type);
             }
 
 
