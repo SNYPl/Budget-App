@@ -43,7 +43,8 @@
                 <option value="inc" selected="">+</option>
                 <option value="exp">-</option>
             </select>
-            <input type="text" class="add--description" placeholder="Add description" id="desc">
+            <input type="text" class="add--description" placeholder="Add description" id="desc" onblur="this.value=removeSpaces(this.value)">
+            <!-- <p class="texts">Enter Correct Text,invalid Characters:"<,/,@...></p> -->
             <input type="number" class="add--value" placeholder="Value" id="val">
             
                 <button class="add" id="button" ><i class="gg-push-chevron-down-o"></i></button>

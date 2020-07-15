@@ -318,3 +318,31 @@ color:#28B9B5;
 .Change {
     margin-right:12px;
 }
+
+.texts {
+    position:absolute;
+    font-size:10px;
+    color:red;
+    font-weight: bold;
+    left:38%;
+    top:54%;
+}
+
+
+
+
+ .desc-color-red::-webkit-input-placeholder {
+     color:red;
+ }
+
+
+
+ input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
