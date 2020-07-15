@@ -335,6 +335,13 @@ color:#28B9B5;
      color:red;
  }
 
+ .border-color {
+     border-color:#FF5049;
+ }
+
+ .border-color:focus {
+    border-color:#a30404;
+ }
 
 
  input::-webkit-outer-spin-button,

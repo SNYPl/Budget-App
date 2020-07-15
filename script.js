@@ -320,12 +320,12 @@ const controller = (function (budgeContr, UiContr) {
     document.getElementById("incomes").textContent = 0;
     document.getElementById("expenses").textContent = 0;
 
-
+        let description = document.querySelector(".add--description");
+        let inputValue = document.querySelector(".add--value");
 
 
     let addItem = function () {
-        let description = document.querySelector(".add--description");
-        let inputValue = document.querySelector(".add--value");
+        
 
 
         if (description.value.length === 0 || inputValue.value.length === 0) {
@@ -394,7 +394,26 @@ const controller = (function (budgeContr, UiContr) {
 
         }
 
+
     }
+
+
+        function onChange () {
+           
+
+            description.classList.toggle("border-color");
+            inputValue.classList.toggle("border-color");
+         
+
+
+
+        }
+
+            document.querySelector(".add--type").addEventListener("change", onChange);
+
+
+
+        
 
 
 
