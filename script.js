@@ -123,18 +123,18 @@ const backController = (function () {
 
 
         newIncId: function () {
-            let eb = 0;
-            eb = data.all.inc.length - 1;
+            let inc = 0;
+            inc = data.all.inc.length - 1;
 
-            return eb;
+            return inc;
         },
 
 
         newExpId: function () {
-            let eb = 0;
-            eb = data.all.exp.length - 1;
+            let exp = 0;
+            exp = data.all.exp.length - 1;
 
-            return eb;
+            return exp;
         },
 
 
@@ -196,7 +196,7 @@ const backController = (function () {
                     backController.deleteFromUi(itemId);
                     backController.totalUi();
                     backController.addToElementInc();
-                    console.log();
+                    
 
                 }
 
