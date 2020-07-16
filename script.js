@@ -236,6 +236,9 @@ const backController = (function () {
 
 
 
+        
+
+
 
 
     }
@@ -400,19 +403,16 @@ const controller = (function (budgeContr, UiContr) {
 
         function onChange () {
            
-
             description.classList.toggle("border-color");
-            inputValue.classList.toggle("border-color");
-         
-
-
-
+            inputValue.classList.toggle("border-color");  
+            document.querySelector(".add").classList.toggle("backgroundColor");    
         }
+
 
             document.querySelector(".add--type").addEventListener("change", onChange);
 
 
-
+       
         
 
 

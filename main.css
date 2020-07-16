@@ -139,6 +139,7 @@ body {
     border: none;
     border-radius: 30px;
     box-shadow: 0 2px #999;
+    transition: background 0.4s
     
 
 }
@@ -352,4 +353,9 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.backgroundColor {
+background-color:#FF5049;
+
 }
